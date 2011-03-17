@@ -51,8 +51,7 @@ module Lolita
           }
           @table<<hsh
         }
-        debugger
-        @table
+        @table.to_html
       end
     end
   end
