@@ -1,1 +1,3 @@
-This software is developed by IT House (Latvia)
+module LolitaReport
+  VERSION = "0.0.1"
+end
