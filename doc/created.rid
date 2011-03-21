@@ -1,0 +1,15 @@
+Mon, 21 Mar 2011 17:45:49 +0200
+./author	Thu, 16 Dec 2010 16:27:51 +0200
+./Gemfile	Tue, 08 Mar 2011 15:11:44 +0200
+./lib/lolita-report/configuration/base.rb	Mon, 21 Mar 2011 17:40:07 +0200
+./lib/lolita-report/configuration/report.rb	Mon, 21 Mar 2011 17:30:33 +0200
+./lib/lolita-report/configuration/reports.rb	Mon, 21 Mar 2011 17:34:26 +0200
+./lib/lolita-report/version.rb	Thu, 17 Mar 2011 11:19:35 +0200
+./lib/lolita-report.rb	Mon, 21 Mar 2011 17:20:03 +0200
+./LICENSE	Thu, 16 Dec 2010 16:27:51 +0200
+./Rakefile	Mon, 10 Jan 2011 16:31:23 +0200
+./spec/configuration/reports_spec.rb	Wed, 09 Mar 2011 10:42:00 +0200
+./spec/configuration/report_spec.rb	Mon, 21 Mar 2011 16:22:56 +0200
+./spec/factories/factories.rb	Wed, 16 Mar 2011 12:44:19 +0200
+./spec/orm/mongoid.rb	Mon, 21 Mar 2011 17:44:01 +0200
+./spec/spec_helper.rb	Wed, 16 Mar 2011 17:37:27 +0200

@@ -37,6 +37,7 @@ describe Lolita::Configuration::Report do
   it "should generate report about post's comments count" do
     post_1=Factory.create(:post,:title=>"pirma raksta virsraksts",:content=>"pirma raksta saturs")
     post_2=Factory.create(:post,:title=>"otra raksta virsraksts",:content=>"otra raksta saturs")
+    post_3=Factory.create(:post,:title=>"tresa raksta virsraksts",:content=>"tresa raksta saturs")
     comment_1=Factory.create(:comment)
     comment_2=Factory.create(:comment)
     comment_3=Factory.create(:comment)
@@ -44,14 +45,15 @@ describe Lolita::Configuration::Report do
     post_2.comments<<comment_2
     post_2.comments<<comment_3
     report=Lolita::Configuration::Report.new(@dbi) do
-      title("post's comments count")
+      name("post's comments count")
       fields(:title,:content)
       total(:comments)
     end
-    report.generate_html
+    report.generate_table_for_report
 
     post_1.destroy
     post_2.destroy
+    post_3.destroy
     comment_1.destroy
     comment_2.destroy
     comment_3.destroy
