@@ -58,5 +58,30 @@ describe Lolita::Configuration::Report do
     comment_2.destroy
     comment_3.destroy
   end
+  it "should export excel file for report" do
+    post_1=Factory.create(:post)
+    post_2=Factory.create(:post)
+    report=Lolita::Configuration::Report.new(@dbi) do
+      fields(:title,:content)
+      total(:comments)
+    end
+    report.generate_table_for_report
+    report.export_excel
+    post_1.destroy
+    post_2.destroy
+    # Reading generated Excel file
+    Spreadsheet.client_encoding = 'UTF-8'
+    book=Spreadsheet.open "test.xls"
+    sheet1 = book.worksheet 0
+    table_head=sheet1.row(0)
+    table_head[0].should == "title"
+    table_head[1].should == "content"
+    table_head[2].should == "comments_total"
+    data=sheet1.row(1)
+    data[0].nil?.should == false
+    data[1].nil?.should == false
+    data[2].nil?.should == false
+    data[3].nil?.should == true
+  end
 end
 

@@ -25,4 +25,7 @@ steak
 config/development.sphinx.conf
 db/sphinx/*
 .loadpath
+coverage
+coverage.data
+*.xls
 

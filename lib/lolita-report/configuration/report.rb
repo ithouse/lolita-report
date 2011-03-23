@@ -16,6 +16,7 @@ module Lolita
       # Set data for counting.
       def total(*args)
         @collumns_for_counting=args if args
+        @collumns_for_counting
       end
       # Return columns in array, which are needed counted.
       def total_columns
@@ -49,8 +50,35 @@ module Lolita
         set_data_into_table_for_report
         @table
       end
-      
+      # generate excel file with necessary data and formating
+      def export_excel
+        book = Spreadsheet::Workbook.new
+        sheet1=book.create_worksheet
+        sheet1.name=@title_for_report if @title_for_report
+        sheet1.row(0).replace(@table[0].attributes.map(&:to_s))
+        1.upto(@table.size){|i|
+          sheet1.row(i).replace(@table[0].attributes.collect{|f| @table[i-1].data[f]})
+        }
+        table_header_format_for sheet1
+        set_columns_width_for sheet1
+#        book.write "#{Time.now.to_i}.xls"
+        book.write "test.xls"
+      end
+
       private
+      # set excel collumns width for sheet
+      def set_columns_width_for sheet
+        0.upto(@table[0].attributes.size-1){|i|
+          sheet.column(i).width=20
+        }
+      end
+      # make format for excel table header
+      def table_header_format_for sheet
+        title_format = Spreadsheet::Format.new :pattern_bg_color=>:grey,
+          :weight => :bold,
+          :size => 12
+        sheet.row(0).default_format =title_format
+      end
       # Make table,which contain all necessary data for report.
       def create_table_for_report
         @table = Table @fields
@@ -74,11 +102,11 @@ module Lolita
       end
       # Check if fields are defined for report.
       def fields_defined?
-        @fields.size>0
+        @fields.size>0 if @fields
       end
       # Check if fields for counting are defined for report.
       def collumns_for_counting_defined?
-        @collumns_for_counting.size>0
+        @collumns_for_counting.size>0 if @collumns_for_counting
       end
       # For setting data for cuonting, necessary to add this collumns to table.
       def add_collumns_for_counting

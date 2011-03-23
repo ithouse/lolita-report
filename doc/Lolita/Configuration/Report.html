@@ -79,6 +79,8 @@
 					
 					<li><a href="#method-i-custom_fields">#custom_fields</a></li>
 					
+					<li><a href="#method-i-export_excel">#export_excel</a></li>
+					
 					<li><a href="#method-i-fields">#fields</a></li>
 					
 					<li><a href="#method-i-fields_defined%3F">#fields_defined?</a></li>
@@ -87,9 +89,13 @@
 					
 					<li><a href="#method-i-name">#name</a></li>
 					
+					<li><a href="#method-i-set_columns_width_for">#set_columns_width_for</a></li>
+					
 					<li><a href="#method-i-set_data_in_counting_columns">#set_data_in_counting_columns</a></li>
 					
 					<li><a href="#method-i-set_data_into_table_for_report">#set_data_into_table_for_report</a></li>
+					
+					<li><a href="#method-i-table_header_format_for">#table_header_format_for</a></li>
 					
 					<li><a href="#method-i-total">#total</a></li>
 					
@@ -249,10 +255,56 @@ Return fields for displaying in report.
 					<div class="method-source-code"
 						id="custom-fields-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 41</span>
-41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">custom_fields</span>
-42:         <span class="ruby-ivar">@fields</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@fields</span>
-43:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 42</span>
+42:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">custom_fields</span>
+43:         <span class="ruby-ivar">@fields</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@fields</span>
+44:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="export-excel-method" class="method-detail ">
+				<a name="method-i-export_excel"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">export_excel</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+generate excel file with necessary data and formating
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="export-excel-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export_excel</span>
+55:         <span class="ruby-identifier">book</span> = <span class="ruby-constant">Spreadsheet</span><span class="ruby-operator">::</span><span class="ruby-constant">Workbook</span>.<span class="ruby-identifier">new</span>
+56:         <span class="ruby-identifier">sheet1</span>=<span class="ruby-identifier">book</span>.<span class="ruby-identifier">create_worksheet</span>
+57:         <span class="ruby-identifier">sheet1</span>.<span class="ruby-identifier">name</span>=<span class="ruby-ivar">@title_for_report</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@title_for_report</span>
+58:         <span class="ruby-identifier">sheet1</span>.<span class="ruby-identifier">row</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">replace</span>(<span class="ruby-ivar">@table</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:to_s</span>))
+59:         <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@table</span>.<span class="ruby-identifier">size</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+60:           <span class="ruby-identifier">sheet1</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">i</span>).<span class="ruby-identifier">replace</span>(<span class="ruby-ivar">@table</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@table</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">data</span>[<span class="ruby-identifier">f</span>]})
+61:         }
+62:         <span class="ruby-identifier">table_header_format_for</span> <span class="ruby-identifier">sheet1</span>
+63:         <span class="ruby-identifier">set_columns_width_for</span> <span class="ruby-identifier">sheet1</span>
+64: <span class="ruby-comment cmt">#        book.write &quot;#{Time.now.to_i}.xls&quot;</span>
+65:         <span class="ruby-identifier">book</span>.<span class="ruby-identifier">write</span> <span class="ruby-value str">&quot;test.xls&quot;</span>
+66:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -285,11 +337,11 @@ Set fields for displaying in report.
 					<div class="method-source-code"
 						id="fields-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 35</span>
-35:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>(*<span class="ruby-identifier">args</span>)
-36:         <span class="ruby-ivar">@fields</span>=<span class="ruby-identifier">args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>
-37:         <span class="ruby-ivar">@fields</span>
-38:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 36</span>
+36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>(*<span class="ruby-identifier">args</span>)
+37:         <span class="ruby-ivar">@fields</span>=<span class="ruby-identifier">args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>
+38:         <span class="ruby-ivar">@fields</span>
+39:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -322,13 +374,13 @@ Generate table for report, which contain all necessary data
 					<div class="method-source-code"
 						id="generate-table-for-report-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 46</span>
-46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_table_for_report</span>
-47:         <span class="ruby-identifier">create_table_for_report</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fields_defined?</span>
-48:         <span class="ruby-identifier">add_collumns_for_counting</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
-49:         <span class="ruby-identifier">set_data_into_table_for_report</span>
-50:         <span class="ruby-ivar">@table</span>
-51:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_table_for_report</span>
+48:         <span class="ruby-identifier">create_table_for_report</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fields_defined?</span>
+49:         <span class="ruby-identifier">add_collumns_for_counting</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
+50:         <span class="ruby-identifier">set_data_into_table_for_report</span>
+51:         <span class="ruby-ivar">@table</span>
+52:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -361,14 +413,14 @@ Set a title for report.
 					<div class="method-source-code"
 						id="name-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 26</span>
-26:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span> <span class="ruby-identifier">title</span>
-27:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
-28:           <span class="ruby-ivar">@title_for_report</span>=<span class="ruby-identifier">title</span>
-29:         <span class="ruby-keyword kw">else</span>
-30:           <span class="ruby-ivar">@title_for_report</span>=<span class="ruby-value str">&quot;&quot;</span>
-31:         <span class="ruby-keyword kw">end</span>
-32:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 27</span>
+27:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span> <span class="ruby-identifier">title</span>
+28:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">title</span>
+29:           <span class="ruby-ivar">@title_for_report</span>=<span class="ruby-identifier">title</span>
+30:         <span class="ruby-keyword kw">else</span>
+31:           <span class="ruby-ivar">@title_for_report</span>=<span class="ruby-value str">&quot;&quot;</span>
+32:         <span class="ruby-keyword kw">end</span>
+33:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -404,7 +456,8 @@ Set data for counting.
     <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 17</span>
 17:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total</span>(*<span class="ruby-identifier">args</span>)
 18:         <span class="ruby-ivar">@collumns_for_counting</span>=<span class="ruby-identifier">args</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>
-19:       <span class="ruby-keyword kw">end</span></pre>
+19:         <span class="ruby-ivar">@collumns_for_counting</span>
+20:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -437,10 +490,10 @@ Return columns in array, which are needed counted.
 					<div class="method-source-code"
 						id="total-columns-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 21</span>
-21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total_columns</span>
-22:         <span class="ruby-ivar">@collumns_for_counting</span>
-23:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 22</span>
+22:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">total_columns</span>
+23:         <span class="ruby-ivar">@collumns_for_counting</span>
+24:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -479,12 +532,12 @@ For setting data for cuonting, necessary to add this collumns to table.
 					<div class="method-source-code"
 						id="add-collumns-for-counting-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 84</span>
-84:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_collumns_for_counting</span>
-85:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">method</span><span class="ruby-operator">|</span>
-86:           <span class="ruby-ivar">@table</span>.<span class="ruby-identifier">add_column</span>(<span class="ruby-node">&quot;#{method.to_s}_total&quot;</span>,<span class="ruby-value">:default=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@table</span>
-87:         }
-88:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 112</span>
+112:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_collumns_for_counting</span>
+113:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">method</span><span class="ruby-operator">|</span>
+114:           <span class="ruby-ivar">@table</span>.<span class="ruby-identifier">add_column</span>(<span class="ruby-node">&quot;#{method.to_s}_total&quot;</span>,<span class="ruby-value">:default=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@table</span>
+115:         }
+116:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -517,10 +570,10 @@ Check if fields for counting are defined for report.
 					<div class="method-source-code"
 						id="collumns-for-counting-defined--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 80</span>
-80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
-81:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
-82:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
+109:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@collumns_for_counting</span>
+110:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -553,10 +606,10 @@ Make table,which contain all necessary data for report.
 					<div class="method-source-code"
 						id="create-table-for-report-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 55</span>
-55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_table_for_report</span>
-56:         <span class="ruby-ivar">@table</span> = <span class="ruby-constant">Table</span> <span class="ruby-ivar">@fields</span>
-57:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 83</span>
+83:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_table_for_report</span>
+84:         <span class="ruby-ivar">@table</span> = <span class="ruby-constant">Table</span> <span class="ruby-ivar">@fields</span>
+85:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -589,10 +642,48 @@ Check if fields are defined for report.
 					<div class="method-source-code"
 						id="fields-defined--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 76</span>
-76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields_defined?</span>
-77:         <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>
-78:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 104</span>
+104:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields_defined?</span>
+105:         <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@fields</span>
+106:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="set-columns-width-for-method" class="method-detail ">
+				<a name="method-i-set_columns_width_for"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_columns_width_for</span><span
+						class="method-args">(sheet)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set excel collumns width for sheet
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-columns-width-for-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 70</span>
+70:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_columns_width_for</span> <span class="ruby-identifier">sheet</span>
+71:         <span class="ruby-value">0</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-ivar">@table</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+72:           <span class="ruby-identifier">sheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-identifier">i</span>).<span class="ruby-identifier">width</span>=<span class="ruby-value">20</span>
+73:         }
+74:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -625,12 +716,12 @@ Set necessary data in columns, where will bi counting something.
 					<div class="method-source-code"
 						id="set-data-in-counting-columns-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 70</span>
-70:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_data_in_counting_columns</span> <span class="ruby-identifier">object</span>
-71:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">method</span><span class="ruby-operator">|</span>
-72:           <span class="ruby-ivar">@hsh</span>[<span class="ruby-node">&quot;#{method.to_s}_total&quot;</span>]=<span class="ruby-identifier">object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">size</span>
-73:         }
-74:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 98</span>
+ 98:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_data_in_counting_columns</span> <span class="ruby-identifier">object</span>
+ 99:         <span class="ruby-ivar">@collumns_for_counting</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">method</span><span class="ruby-operator">|</span>
+100:           <span class="ruby-ivar">@hsh</span>[<span class="ruby-node">&quot;#{method.to_s}_total&quot;</span>]=<span class="ruby-identifier">object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>).<span class="ruby-identifier">size</span>
+101:         }
+102:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
@@ -663,17 +754,56 @@ Set all necessary data into table.
 					<div class="method-source-code"
 						id="set-data-into-table-for-report-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 59</span>
-59:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_data_into_table_for_report</span>
-60:         <span class="ruby-ivar">@dbi</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>).<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
-61:           <span class="ruby-ivar">@hsh</span>={}
-62:           <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-63:             <span class="ruby-ivar">@hsh</span>[<span class="ruby-identifier">f</span>]=<span class="ruby-identifier">object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">f</span>)
-64:             <span class="ruby-identifier">set_data_in_counting_columns</span>(<span class="ruby-identifier">object</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
-65:           }
-66:           <span class="ruby-ivar">@table</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-ivar">@hsh</span>
-67:         }
-68:       <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 87</span>
+87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_data_into_table_for_report</span>
+88:         <span class="ruby-ivar">@dbi</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>).<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">object</span><span class="ruby-operator">|</span>
+89:           <span class="ruby-ivar">@hsh</span>={}
+90:           <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+91:             <span class="ruby-ivar">@hsh</span>[<span class="ruby-identifier">f</span>]=<span class="ruby-identifier">object</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">f</span>)
+92:             <span class="ruby-identifier">set_data_in_counting_columns</span>(<span class="ruby-identifier">object</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">collumns_for_counting_defined?</span>
+93:           }
+94:           <span class="ruby-ivar">@table</span><span class="ruby-operator">&lt;&lt;</span><span class="ruby-ivar">@hsh</span>
+95:         }
+96:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="table-header-format-for-method" class="method-detail ">
+				<a name="method-i-table_header_format_for"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">table_header_format_for</span><span
+						class="method-args">(sheet)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+make format for excel table header
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="table-header-format-for-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/lolita-report/configuration/report.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">table_header_format_for</span> <span class="ruby-identifier">sheet</span>
+77:         <span class="ruby-identifier">title_format</span> = <span class="ruby-constant">Spreadsheet</span><span class="ruby-operator">::</span><span class="ruby-constant">Format</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:pattern_bg_color=</span><span class="ruby-operator">&gt;</span><span class="ruby-value">:grey</span>,
+78:           <span class="ruby-value">:weight</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:bold</span>,
+79:           <span class="ruby-value">:size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">12</span>
+80:         <span class="ruby-identifier">sheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">default_format</span> =<span class="ruby-identifier">title_format</span>
+81:       <span class="ruby-keyword kw">end</span></pre>
 					</div>
 					
 				</div>
