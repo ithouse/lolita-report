@@ -3,8 +3,9 @@
 module Lolita
   module Configuration
     class Report
-
-      lolita_accessor :title,:total_columns
+      include Lolita::Builder
+      
+      lolita_accessor :title,:name,:total_columns
       
       def initialize(dbi,title=nil, &block)
         @dbi=dbi
@@ -61,7 +62,7 @@ module Lolita
         }
         table_header_format_for sheet1
         set_columns_width_for sheet1
-#        book.write "#{Time.now.to_i}.xls"
+        #        book.write "#{Time.now.to_i}.xls"
         book.write "test.xls"
       end
 

@@ -3,8 +3,10 @@
 # definition, and the other one made to assing Lolita to class as a Lolita::Configuration::Base
 # object. You may want to do that to change configuration or for testing purpose.
 
-module LolitaReport
+module Lolita
   module Configuration
+
+    class Base
       # Container for reports
       def reports &block
         Lolita::LazyLoader.lazy_load(self,:@reports,Lolita::Configuration::Reports,@dbi,&block)
@@ -14,5 +16,6 @@ module LolitaReport
       def report *args, &block
         self.reports<<Lolita::Configuration::Report.new(@dbi,*args,&block)
       end
+    end
   end
 end
