@@ -1,1 +1,1 @@
-#Lolita.add_module Lolita::Report, :nested=>true, :route=>:report
+Lolita.add_module Lolita::Report, :nested=>true, :route=>:report

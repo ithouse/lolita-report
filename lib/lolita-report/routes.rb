@@ -4,12 +4,11 @@ module ActionDispatch::Routing
 
     def lolita_report_route mapping, controllers
       # /categories/report/by-user-comments
-      resources mapping.plural,:only=>[:none],
-        :controller=>controllers[:reports],:module=>mapping.module do
-          member do
-            get "report"
-          end
+      resources mapping.plural,:only=>[:none],:module=>mapping.module do
+        collection do
+          match "report/:name", :to=>"#{controllers[:reports]}#show", :as=>"reports"
         end
+      end
       
     end
   end

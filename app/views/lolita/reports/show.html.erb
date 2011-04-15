@@ -1,0 +1,9 @@
+<div class="report">
+  <%= render_component *@builder %>
+
+  <br/>
+  <% Report.formats.each do |format| %>
+    <%= link_to format.to_s.upcase, send(lolita_resource_name(:action=>:report,:plural=>true),:format=>format) %>
+    &nbsp;
+  <% end %>
+</div>

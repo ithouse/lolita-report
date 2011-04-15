@@ -3,7 +3,7 @@
 module Lolita
   module Configuration
     class Reports
-      #      include Lolita::Builder
+      #include Lolita::Builder
       include Lolita::ObservedArray
 
       def initialize dbi,*args,&block
@@ -25,25 +25,16 @@ module Lolita
         @reports.map(&:title)
       end
 
-#      def set_report_attributes(report)
-#        if report
-#          report.title="tab_#{@tabs.size}" unless report.title
-#        end
-#      end
+      def by_name(name)
+        @reports.detect{|report| report.name==name}
+      end
    
       private
       def collection_variable
         @reports
       end
       def build_element(element,&block)
-        current_report=if element.is_a?(Hash) || element.is_a?(Symbol)
-          Lolita::Configuration::Tab.new(@dbi,element,&block)
-        else
-          element
-        end
-        #        set_report_attributes(current_report)
-        #        validate_type(current_report)
-        current_report
+        element
       end
       
     end

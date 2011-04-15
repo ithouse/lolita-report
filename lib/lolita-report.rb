@@ -2,6 +2,8 @@ $:<<File.dirname(__FILE__) unless $:.include?(File.dirname(__FILE__))
 require 'lolita'
 require "lolita-report/configuration/base"
 require "lolita-report/rails"
+require "ruport"
+require "spreadsheet"
 module Lolita
   module Report
   

@@ -14,8 +14,9 @@ module Lolita
 
       # Container for report
       def report *args, &block
-        self.reports<<Lolita::Configuration::Report.new(@dbi,*args,&block)
+        self.reports << Lolita::Configuration::Report.new(@dbi,*args,&block)
       end
     end
+    
   end
 end
