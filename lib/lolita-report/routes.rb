@@ -6,7 +6,7 @@ module ActionDispatch::Routing
       # /categories/report/by-user-comments
       resources mapping.plural,:only=>[:none],:module=>mapping.module do
         collection do
-          match "report/:name", :to=>"#{controllers[:reports]}#show", :as=>"reports"
+          match "reports/:name", :to=>"#{controllers[:reports]}#show", :as=>"reports"
         end
       end
       

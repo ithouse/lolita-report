@@ -34,7 +34,7 @@ module Lolita
       end
 
       def field *args, &block
-        @fields<<Lolita::Configuration::Field.new(@dbi,*args,&block)
+        @fields<<Lolita::Configuration::Field::Base.new(@dbi,*args,&block)
       end
 
       def fields *args
