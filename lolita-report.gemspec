@@ -8,19 +8,24 @@ Gem::Specification.new do |s|
   s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Arturs Meisters"]
+  s.authors = ["ITHouse (Latvia)", "Arturs Meisters", "Artjoms Tjangins"]
   s.date = %q{2011-04-15}
-  s.description = %q{TODO: longer description of your gem}
-  s.email = %q{arturs@ithouse.lv}
+  s.description = %q{Enable configuration and generate HTML view for Lolita resources, and also has ability to export to different formats.}
+  s.email = %q{support@ithouse.lv}
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
   s.files = [
+    ".document",
     "Gemfile",
+    "LICENSE.txt",
+    "README.rdoc",
     "Rakefile",
     "VERSION",
-    "app/views/components/lolita/report/_display.html.erb",
+    "app/controllers/lolita/reports_controller.rb",
+    "app/views/components/lolita/configuration/report/_display.html.erb",
+    "app/views/lolita/reports/show.html.erb",
     "author",
     "doc/ActiveSupport.html",
     "doc/ActiveSupport/TestCase.html",
@@ -91,7 +96,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.1}
-  s.summary = %q{TODO: one-line summary of your gem}
+  s.summary = %q{Report plugin for Lolita 3}
   s.test_files = [
     "spec/configuration/report_spec.rb",
     "spec/configuration/reports_spec.rb",
