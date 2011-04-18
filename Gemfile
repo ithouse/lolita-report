@@ -1,8 +1,7 @@
 source 'http://rubygems.org'
 
-gem "abstract"
+gem "lolita", "~> 3.1.4"
 gem "ruport"
-gem "lolita", "~> 3.1.3"
 gem "spreadsheet"
 
 group :test, :development do

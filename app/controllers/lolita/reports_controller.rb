@@ -2,16 +2,17 @@ class Lolita::ReportsController < ApplicationController
   include Lolita::Controllers::InternalHelpers
   layout "lolita/application"
   def show
-    report = self.resource_class.lolita.reports.by_name(params[:name])
-    report.generate_table_for_report
+    @report = self.resource_class.lolita.reports.by_name(params[:name])
     respond_to do |format|
       format.html{
-        @builder=report.build 
+        @html=@report.report_controller.render_html(:report=>@report)
         render
       }
       format.xls do |format|
-        xls=report.to_xls(:raw)
-        send_data xls, :type => :xls, :filename => report.file_name(:xls)
+        xls=@report.report_controller.render_xls(:report=>@report)
+        unless @report.file_base_name
+          send_data xls,:type=>:xls,:filename=>@report.file_name(:xls)
+        end
       end
     end
   end

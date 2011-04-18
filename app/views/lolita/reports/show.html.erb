@@ -1,9 +1,8 @@
-<div class="report">
-  <%= render_component *@builder %>
+<%= raw(@html) %>
 
-  <br/>
+<div>
   <% Lolita::Configuration::Report.formats.each do |format| %>
-    <%= link_to format.to_s.upcase, send(lolita_resource_name(:action=>:reports,:plural=>true),:format=>format) %>
+    <%= link_to image_tag("xls.png"), send(lolita_resource_name(:action=>:reports,:plural=>true),:format=>format) %>
     &nbsp;
   <% end %>
 </div>

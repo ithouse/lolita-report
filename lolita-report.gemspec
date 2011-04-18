@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{lolita-report}
-  s.version = "0.0.2"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["ITHouse (Latvia)", "Arturs Meisters", "Artjoms Tjangins"]
-  s.date = %q{2011-04-15}
+  s.date = %q{2011-04-19}
   s.description = %q{Enable configuration and generate HTML view for Lolita resources, and also has ability to export to different formats.}
   s.email = %q{support@ithouse.lv}
   s.extra_rdoc_files = [
@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "app/controllers/lolita/reports_controller.rb",
-    "app/views/components/lolita/configuration/report/_display.html.erb",
     "app/views/lolita/reports/show.html.erb",
     "author",
     "doc/ActiveSupport.html",
@@ -109,9 +108,8 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<abstract>, [">= 0"])
+      s.add_runtime_dependency(%q<lolita>, ["~> 3.1.4"])
       s.add_runtime_dependency(%q<ruport>, [">= 0"])
-      s.add_runtime_dependency(%q<lolita>, ["~> 3.1.0"])
       s.add_runtime_dependency(%q<spreadsheet>, [">= 0"])
       s.add_development_dependency(%q<factory_girl_rails>, [">= 0"])
       s.add_development_dependency(%q<cover_me>, [">= 1.0.0.rc6"])
@@ -121,9 +119,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.5.2"])
     else
-      s.add_dependency(%q<abstract>, [">= 0"])
+      s.add_dependency(%q<lolita>, ["~> 3.1.4"])
       s.add_dependency(%q<ruport>, [">= 0"])
-      s.add_dependency(%q<lolita>, ["~> 3.1.0"])
       s.add_dependency(%q<spreadsheet>, [">= 0"])
       s.add_dependency(%q<factory_girl_rails>, [">= 0"])
       s.add_dependency(%q<cover_me>, [">= 1.0.0.rc6"])
@@ -134,9 +131,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.5.2"])
     end
   else
-    s.add_dependency(%q<abstract>, [">= 0"])
+    s.add_dependency(%q<lolita>, ["~> 3.1.4"])
     s.add_dependency(%q<ruport>, [">= 0"])
-    s.add_dependency(%q<lolita>, ["~> 3.1.0"])
     s.add_dependency(%q<spreadsheet>, [">= 0"])
     s.add_dependency(%q<factory_girl_rails>, [">= 0"])
     s.add_dependency(%q<cover_me>, [">= 1.0.0.rc6"])
