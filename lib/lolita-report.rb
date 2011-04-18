@@ -17,15 +17,17 @@ end
 require "lolita-report/module.rb"
 
 Lolita::Navigation::Tree.after_branch_added do
-  if self.name==:"left_side_navigation"
-    if @last_branch && @last_branch.object && @last_branch.object.is_a?(Lolita::Mapping) 
-      if @last_branch.object.to.lolita.reports.any?
-        @last_branch.object.to.lolita.reports.each do |report|
-          unless @last_branch.children.branches.detect{|b| b.options[:report_name]==report.name}
-            @last_branch.append(report,:title=>report.title,:report_name=>report.name,:url=>Proc.new{
-              send(lolita_resource_name(:action=>:reports,:plural=>true),:name=>report.name)
-            })
-          end
+  self.branches.each do |branch|
+    if branch.object.is_a?(Lolita::Mapping) && branch.object.to.lolita.reports.any?
+      klass=branch.object.to
+      klass.lolita.reports.each do |report|
+        unless branch.children.branches.detect{|child_branch| child_branch.object==report}
+          branch.append(report,:title=>report.title,:url=>Proc.new{|view,branch|
+            
+            options={:mapping=>branch.tree.parent.object,:action=>:reports,:plural=>true}
+            path_method=view.send(:lolita_resource_name,options)
+            view.send(path_method,:name=>branch.object.name)
+          })
         end
       end
     end
