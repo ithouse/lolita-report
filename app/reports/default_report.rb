@@ -55,7 +55,7 @@ class XLS < Ruport::Formatter
 
   def build_header
     @sheet.name=options.report.title
-    @sheet.row(0).replace(options.report.column_names.map{|c| c.to_s})
+    @sheet.row(0).replace(options.report.column_names.map{|c| c.to_s.humanize})
     @sheet.row(0).default_format=header_format()
     0.upto(options.report.column_names.size-1) do |index|
       @sheet.column(index).width=20
